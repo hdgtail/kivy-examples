@@ -1,0 +1,36 @@
+#:import dp kivy.metrics.dp
+
+BoxLayout:
+    orientation: "vertical"
+    padding: dp(20)
+    spacing: dp(16)
+
+    canvas.before:
+        Color:
+            rgba: 0, 0, 0, 1
+        Rectangle:
+            pos: self.pos
+            size: self.size
+
+    Label:
+        id: label
+        text: app.current_text
+        font_name: "Roboto"
+        font_size: 30
+        color: 1, 1, 1, 1
+        size_hint_y: 0.55
+        text_size: self.width, self.height
+        halign: "center"
+        valign: "top"
+
+    TextInput:
+        id: text_input
+        hint_text: "Введите слово"
+        size_hint_y: 0.18
+        multiline: False
+        write_tab: False
+
+    Button:
+        text: "Отправить"
+        size_hint_y: 0.2
+        on_press: app.process_word()
