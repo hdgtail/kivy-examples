@@ -1,0 +1,261 @@
+#:import dp kivy.metrics.dp
+#:import sp kivy.metrics.sp
+
+MDScreen:
+    MDBoxLayout:
+        orientation: "vertical"
+
+        MDTopAppBar:
+            title: "KivyMD UI Showcase"
+            elevation: 3
+
+        MDBoxLayout:
+            size_hint_y: None
+            height: dp(56)
+            padding: dp(18), dp(10)
+
+            MDLabel:
+                text: app.action_text
+                theme_text_color: "Primary"
+                halign: "left"
+                valign: "middle"
+
+        DemoScrollView:
+            do_scroll_x: False
+            bar_width: dp(8)
+            scroll_type: ["bars", "content"]
+
+            MDBoxLayout:
+                orientation: "vertical"
+                size_hint_y: None
+                height: self.minimum_height
+                spacing: dp(18)
+                padding: dp(20)
+
+                MDCard:
+                    orientation: "vertical"
+                    padding: dp(18)
+                    spacing: dp(12)
+                    size_hint_y: None
+                    height: self.minimum_height
+                    radius: [18, 18, 18, 18]
+
+                    MDLabel:
+                        text: "Кнопки (Buttons)"
+                        bold: True
+                        adaptive_height: True
+
+                    MDLabel:
+                        text: "Кнопки кликабельны и меняют статус сверху."
+                        theme_text_color: "Secondary"
+                        adaptive_height: True
+
+                    MDBoxLayout:
+                        size_hint_y: None
+                        height: dp(48)
+                        spacing: dp(10)
+
+                        MDRaisedButton:
+                            text: "Primary"
+                            on_release: app.set_action("Нажата кнопка Primary")
+
+                        MDRectangleFlatButton:
+                            text: "Outline"
+                            on_release: app.set_action("Нажата кнопка Outline")
+
+                        MDIconButton:
+                            icon: "heart-outline"
+                            on_release: app.set_action("Нажата иконка Like")
+
+                MDCard:
+                    orientation: "vertical"
+                    padding: dp(18)
+                    spacing: dp(12)
+                    size_hint_y: None
+                    height: self.minimum_height
+                    radius: [18, 18, 18, 18]
+
+                    MDLabel:
+                        text: "Поля ввода (TextField)"
+                        bold: True
+                        adaptive_height: True
+
+                    MDLabel:
+                        text: "Фокус и ввод работают корректно для desktop."
+                        theme_text_color: "Secondary"
+                        adaptive_height: True
+
+                    MDTextField:
+                        hint_text: "Ваше имя"
+                        helper_text: "Нажмите Enter для подтверждения"
+                        helper_text_mode: "on_focus"
+                        icon_right: "account"
+                        on_text_validate: app.set_action("Введено имя: " + self.text)
+
+                    MDTextField:
+                        hint_text: "Пароль"
+                        password: True
+                        icon_right: "eye-off"
+                        on_text_validate: app.set_action("Пароль введен")
+
+                MDCard:
+                    orientation: "vertical"
+                    padding: dp(18)
+                    spacing: dp(12)
+                    size_hint_y: None
+                    height: self.minimum_height
+                    radius: [18, 18, 18, 18]
+
+                    MDLabel:
+                        text: "Switch и Checkbox"
+                        bold: True
+                        adaptive_height: True
+
+                    MDLabel:
+                        text: "Переключайте состояния и смотрите обновления."
+                        theme_text_color: "Secondary"
+                        adaptive_height: True
+
+                    MDBoxLayout:
+                        size_hint_y: None
+                        height: dp(48)
+                        spacing: dp(12)
+
+                        MDLabel:
+                            text: "MDSwitch:"
+                            size_hint_x: None
+                            width: dp(130)
+                            size_hint_y: None
+                            height: dp(34)
+                            valign: "middle"
+                            halign: "left"
+                            font_size: "18sp"
+                            text_size: self.size
+
+                        MDSwitch:
+                            size_hint_x: None
+                            size_hint_y: None
+                            # Для M3 KivyMD рисует track как (root.width + dp(16)),
+                            # поэтому делаем ширину близкой к дефолту, чтобы трек и thumb смотрелись пропорционально.
+                            width: dp(36)
+                            height: dp(48)
+                            on_active: app.on_switch_active(*args)
+
+                    MDBoxLayout:
+                        size_hint_y: None
+                        height: dp(48)
+                        spacing: dp(12)
+
+                        MDLabel:
+                            text: "MDCheckbox:"
+                            size_hint_x: .4
+                            valign: "middle"
+
+                        MDCheckbox:
+                            size_hint_x: .2
+                            on_active: app.on_checkbox_active(*args)
+
+                        MDLabel:
+                            text: app.checkbox_state_text
+                            size_hint_x: .4
+                            valign: "middle"
+
+                MDCard:
+                    orientation: "vertical"
+                    padding: dp(18)
+                    spacing: dp(12)
+                    size_hint_y: None
+                    height: self.minimum_height
+                    radius: [18, 18, 18, 18]
+
+                    MDLabel:
+                        text: "Slider и ProgressBar"
+                        bold: True
+                        adaptive_height: True
+
+                    MDLabel:
+                        text: "Слайдер обновляет значение и прогресс в реальном времени."
+                        theme_text_color: "Secondary"
+                        adaptive_height: True
+
+                    MDSlider:
+                        size_hint_y: None
+                        height: dp(48)
+                        min: 0
+                        max: 100
+                        value: app.slider_value
+                        step: 1
+                        on_value: app.on_slider_value(*args)
+
+                    MDLabel:
+                        text: "Значение: " + app.slider_value_text
+                        adaptive_height: True
+
+                    MDProgressBar:
+                        value: app.slider_value
+                        size_hint_y: None
+                        height: dp(10)
+
+                MDCard:
+                    orientation: "vertical"
+                    padding: dp(18)
+                    spacing: dp(12)
+                    size_hint_y: None
+                    height: self.minimum_height
+                    radius: [18, 18, 18, 18]
+
+                    MDLabel:
+                        text: "Списки (MDList)"
+                        bold: True
+                        adaptive_height: True
+
+                    MDLabel:
+                        text: "Пункты списка можно нажимать как action-элементы."
+                        theme_text_color: "Secondary"
+                        adaptive_height: True
+
+                    MDList:
+                        size_hint_y: None
+                        height: self.minimum_height
+
+                        OneLineListItem:
+                            text: "OneLineListItem: простой пункт"
+                            on_release: app.set_action("Выбран OneLineListItem")
+
+                        TwoLineListItem:
+                            text: "TwoLineListItem: заголовок"
+                            secondary_text: "Дополнительное описание"
+                            on_release: app.set_action("Выбран TwoLineListItem")
+
+                MDCard:
+                    orientation: "vertical"
+                    padding: dp(18)
+                    spacing: dp(12)
+                    size_hint_y: None
+                    height: self.minimum_height
+                    radius: [18, 18, 18, 18]
+
+                    MDLabel:
+                        text: "Индикатор загрузки (Spinner)"
+                        bold: True
+                        adaptive_height: True
+
+                    MDLabel:
+                        text: "MDSpinner + кнопка запуска/остановки."
+                        theme_text_color: "Secondary"
+                        adaptive_height: True
+
+                    MDSpinner:
+                        id: loader
+                        size_hint: None, None
+                        size: dp(46), dp(46)
+                        pos_hint: {"center_x": 0.5}
+                        active: True
+
+                    MDRaisedButton:
+                        text: "Переключить spinner"
+                        pos_hint: {"center_x": 0.5}
+                        on_release:
+                            loader.active = not loader.active
+                            app.set_action("Spinner active: " + str(loader.active))
+                            
