@@ -1,0 +1,181 @@
+WeatherScreen:
+    id: weather_screen
+
+    # спинер при запросе обновления страницы
+    MDSpinner:
+        id: spinner
+        size_hint: None, None
+        size: "40dp", "40dp"
+        pos_hint: {"center_x": 0.5}
+        center_y: root.height - ((0 - root.ids.main_box.y) / 2)
+        active: False
+        opacity: 0
+        color: 0.05, 0.2, 0.45, 1
+
+    # основной столбец
+    MDBoxLayout:
+        id: main_box
+        orientation: "vertical"
+        spacing: "10dp"
+        padding: "10dp"
+        md_bg_color: 1, 1, 1, 1
+
+        # верхний бар с кнопками
+        MDBoxLayout:
+            id: toolbar
+            size_hint_y: None
+            height: "56dp"
+            orientation: "horizontal"
+            padding: "12dp", 0
+            md_bg_color: 0.05, 0.2, 0.45, 1
+            spacing: "8dp"
+
+            MDLabel:
+                text: root.city + "  |  " + root.current_time_text
+                theme_text_color: "Custom"
+                text_color: 1, 1, 1, 1
+                bold: True
+                valign: "middle"
+                size_hint_x: 1
+
+            MDRaisedButton:
+                id: city_button
+                text: "Выбрать город"
+                md_bg_color: 1, 1, 1, 1
+                theme_text_color: "Custom"
+                text_color: 0, 0, 0, 1
+                pos_hint: {"center_y": 0.5}
+                on_release: app.open_city_menu()
+
+            MDIconButton:
+                icon: "refresh"
+                theme_text_color: "Custom"
+                text_color: 1, 1, 1, 1
+                pos_hint: {"center_y": 0.5}
+                on_release: root.update_weather()
+
+        # основная карточка
+        MDBoxLayout:
+            size_hint_y: 0.28
+            md_bg_color: 0.2, 0.5, 0.8, 1
+            padding: "20dp"
+            spacing: "10dp"
+
+            MDLabel:
+                text: root.temperature
+                font_size: "40sp"
+                halign: "center"
+                theme_text_color: "Custom"
+                text_color: 1, 1, 1, 1
+
+            MDLabel:
+                text: root.weather_emoji
+                font_size: "42sp"
+                font_name: root.emoji_font_name if root.emoji_font_name else "Roboto"
+                halign: "center"
+                valign: "middle"
+                size_hint_x: None
+                width: "90dp"
+
+            MDLabel:
+                text: root.weather_status
+                font_size: "18sp"
+                halign: "center"
+                theme_text_color: "Custom"
+                text_color: 1, 1, 1, 1
+
+        # две средние карточки: статус ветра и влажности
+        MDBoxLayout:
+            size_hint_y: 0.35
+            spacing: "10dp"
+
+            MDCard:
+                orientation: "vertical"
+                padding: "10dp"
+                elevation: 1
+                radius: [15, 15, 15, 15]
+
+                MDLabel:
+                    text: "Ветер"
+                    halign: "center"
+                MDLabel:
+                    text: "💨"
+                    font_size: "36sp"
+                    font_name: root.emoji_font_name if root.emoji_font_name else "Roboto"
+                    halign: "center"
+                    valign: "middle"
+                MDLabel:
+                    text: root.wind_text
+                    halign: "center"
+
+            MDCard:
+                orientation: "vertical"
+                padding: "10dp"
+                elevation: 1
+                radius: [15, 15, 15, 15]
+
+                MDLabel:
+                    text: "Влажность"
+                    halign: "center"
+                MDLabel:
+                    text: "💧"
+                    font_size: "36sp"
+                    font_name: root.emoji_font_name if root.emoji_font_name else "Roboto"
+                    halign: "center"
+                    valign: "middle"
+                MDLabel:
+                    text: root.humidity_text
+                    halign: "center"
+
+        # нижняя карточка: четыре колонки прогноза (иконка + температура и время).
+        MDCard:
+            size_hint_y: 0.22
+            orientation: "horizontal"
+            padding: "10dp"
+            spacing: "10dp"
+            elevation: 1
+            radius: [15, 15, 15, 15]
+
+            MDBoxLayout:
+                orientation: "vertical"
+                MDIcon:
+                    icon: root.f1_icon
+                    pos_hint: {"center_x": 0.5, "center_y": 0.7}
+                    font_size: "32sp"
+                    theme_text_color: "Primary"
+                MDLabel:
+                    text: root.f1_temp + "\n" + root.f1_time
+                    halign: "center"
+
+            MDBoxLayout:
+                orientation: "vertical"
+                MDIcon:
+                    icon: root.f2_icon
+                    pos_hint: {"center_x": 0.5, "center_y": 0.7}
+                    font_size: "32sp"
+                    theme_text_color: "Primary"
+                MDLabel:
+                    text: root.f2_temp + "\n" + root.f2_time
+                    halign: "center"
+
+            MDBoxLayout:
+                orientation: "vertical"
+                MDIcon:
+                    icon: root.f3_icon
+                    pos_hint: {"center_x": 0.5, "center_y": 0.7}
+                    font_size: "32sp"
+                    theme_text_color: "Primary"
+                MDLabel:
+                    text: root.f3_temp + "\n" + root.f3_time
+                    halign: "center"
+
+            MDBoxLayout:
+                orientation: "vertical"
+                MDIcon:
+                    icon: root.f4_icon
+                    pos_hint: {"center_x": 0.5, "center_y": 0.7}
+                    font_size: "32sp"
+                    theme_text_color: "Primary"
+                MDLabel:
+                    text: root.f4_temp + "\n" + root.f4_time
+                    halign: "center"
